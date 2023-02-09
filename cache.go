@@ -1,18 +1,18 @@
 package main
 
 type Cacher interface {
-	Get(int) (string, bool)
-	Set(int, string) error
+	Get(int) ([]byte, bool)
+	Set(int, []byte) error
 	Remove(int) error
 }
 
 type NOPCache struct{}
 
-func (c NOPCache) Get(int) (string, bool) {
-	return "", false
+func (c NOPCache) Get(int) ([]byte, bool) {
+	return nil, false
 }
 
-func (c NOPCache) Set(int, string) error {
+func (c NOPCache) Set(int, *User) error {
 	return nil
 }
 

@@ -20,17 +20,18 @@ func NewRedisCache(c *redis.Client, ttl time.Duration) *RedisCache {
 	}
 }
 
-func (c *RedisCache) Get(key int) (string, bool) {
+func (c *RedisCache) Get(key int) ([]byte, bool) {
 	ctx := context.Background()
 	keyStr := strconv.Itoa(key)
 	val, err := c.client.Get(ctx, keyStr).Result()
 	if err != nil {
-		return "", false
+		return nil, false
 	}
-	return val, true
+
+	return []byte(val), true
 }
 
-func (c *RedisCache) Set(key int, val string) error {
+func (c *RedisCache) Set(key int, val []byte) error {
 	ctx := context.Background()
 	keyStr := strconv.Itoa(key)
 	_, err := c.client.Set(ctx, keyStr, val, c.ttl).Result()
