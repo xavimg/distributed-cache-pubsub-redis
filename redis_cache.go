@@ -27,7 +27,6 @@ func (c *RedisCache) Get(key int) ([]byte, bool) {
 	if err != nil {
 		return nil, false
 	}
-
 	return []byte(val), true
 }
 
